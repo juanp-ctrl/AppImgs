@@ -1,0 +1,15 @@
+#buscador {
+    width: 400px;
+}
+
+@media (max-width: 900px) {
+    #buscador{
+        width: 300px;
+    }
+}
+
+@media (max-width: 767px) {
+    #buscador{
+        width: 100%;
+    }
+}
