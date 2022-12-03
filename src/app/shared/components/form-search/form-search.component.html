@@ -1,1 +1,12 @@
-<p>form-search works!</p>
+<form class="d-flex" id="buscador">
+    <input
+    #inputSearch
+    autofocus
+    type="text"
+    class="form-control me-2"
+    placeholder="Fotos..."
+    (keyup) = "onSearch(inputSearch.value)"
+    >
+    <button class="btn btn-outline-success" type="submit">Buscar</button>    
+</form>
+
