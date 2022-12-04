@@ -15,10 +15,9 @@ export class FormSearchComponent {
 
     if(value && value.length>3){
       this.router.navigate(["/lista-fotos"], {
-        queryParams:{q:value}
+        queryParams: {q:value}
       })
     }
-
     console.log("buscar " +value)
   }
 

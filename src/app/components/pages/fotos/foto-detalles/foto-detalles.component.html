@@ -1,1 +1,25 @@
-<p>foto-detalles works!</p>
+<div class="row justify-content-center" >
+    <div class="col-xs-12 col-sm-6 col-md-6 justify-content-center" *ngFor="let foto of fotos">
+        <!-- Todas las fotos -->
+        <div class="card">
+
+            <div class="content">
+                <a>
+                  <div class="content-overlay"></div>
+                  <img [src]="foto.webformatURL" [alt]="foto.type" class="content-image">                  <div class="content-details fadeIn-bottom">
+                    <p class="content-text"># {{foto.tags}}</p>
+                  </div>
+                </a>
+            </div>
+            <div class="card-inner">
+                <div class="header">
+                    <h4 class="text-muted">Likes: {{foto.likes}}</h4>
+                    <small class="text-muted">Vistas: {{foto.views}}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button class="btn btn-primary mt-3" (click)="GoBack()">
+    Back 
+</button>
