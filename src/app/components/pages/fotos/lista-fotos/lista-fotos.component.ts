@@ -4,6 +4,10 @@ import { take } from 'rxjs/operators';
 import { Foto } from 'src/app/shared/components/interfaces/fotos.interface';
 import { FotoService } from 'src/app/shared/services/foto.service';
 import { DOCUMENT } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { retrievedFotosList } from 'src/app/state/actions/fotos.actions';
+import { Observable } from 'rxjs';
+import { selectFotos } from 'src/app/state/selectors/fotos.selectors';
 
 @Component({
   selector: 'app-lista-fotos',
@@ -12,6 +16,7 @@ import { DOCUMENT } from '@angular/common';
 })
 export class ListaFotosComponent {
   fotos: Foto[] =[];
+  // foto$: Observable<any> = new Observable()
 
   private pageNum=1;
   query!: string;
@@ -21,7 +26,10 @@ export class ListaFotosComponent {
   showGoUpButton = false;
 
   constructor(private fotoSvc: FotoService, private route: ActivatedRoute,
-    @Inject(DOCUMENT) private document:Document) {}
+    @Inject(DOCUMENT) private document:Document) 
+    {
+      // this.foto$ = this.store.select(selectFotos)    //Nos comunicamos con el store y hacemos uso del selector
+    }
 
   ngOnInit(): void{
     this.getFotosByQuery();
@@ -71,11 +79,13 @@ export class ListaFotosComponent {
         if(num == 1){
           console.log("Respuesta: ", res)
           const {hits} = res;
+          // this.store.dispatch(retrievedFotosList({fotos: [...hits]}))   //Usamos el store
           this.fotos = [...hits]
         }
         else{
-          console.log("Respuesta: ", res)
+          console.log("Respuesta: ", res) 
           const {hits} = res;
+          // this.store.dispatch(retrievedFotosList({fotos: [...hits]}))
           this.fotos = [...this.fotos, ...hits]
         }
       }

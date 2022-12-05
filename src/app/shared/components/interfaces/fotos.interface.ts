@@ -9,4 +9,6 @@ export interface Foto {
     views: number;
     downloads: number;
     likes: number;
+    query: string;
+    category: string;
 }

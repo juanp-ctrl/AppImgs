@@ -1,4 +1,5 @@
 <div class="row" infinite-scroll (scrolled)="onScrollDown()">
+    <!-- {{foto$ | async | json}} -->
     <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let foto of fotos">
         <!-- Todas las fotos -->
         <app-foto [foto]="foto"></app-foto>

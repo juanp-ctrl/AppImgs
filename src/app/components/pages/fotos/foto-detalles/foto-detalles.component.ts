@@ -4,6 +4,8 @@ import { Location } from '@angular/common';
 import { Observable, take } from 'rxjs';
 import { Foto } from 'src/app/shared/components/interfaces/fotos.interface';
 import { FotoService } from 'src/app/shared/services/foto.service';
+import { Store } from '@ngrx/store';
+import { selecUnaFoto } from 'src/app/state/selectors/fotos.selectors';
 
 @Component({
   selector: 'app-foto-detalles',
@@ -12,9 +14,13 @@ import { FotoService } from 'src/app/shared/services/foto.service';
 })
 export class FotoDetallesComponent implements OnInit {
 
-  fotos: Foto[] =[];
+  foto!: Foto;
+  foto$: Observable<any> = new Observable()
   
-  constructor(private route:ActivatedRoute, private fotoSvc:FotoService, private location:Location){}
+  constructor(private route:ActivatedRoute, private fotoSvc:FotoService, private location:Location,
+    private store: Store){
+      this.foto$ = this.store.select(selecUnaFoto)
+    }
 
   ngOnInit(): void{
     this.route.queryParams.pipe(take(1)).subscribe(params => {
@@ -23,13 +29,15 @@ export class FotoDetallesComponent implements OnInit {
       this.fotoSvc.getDetalles(id).pipe(take(1)).subscribe((res:any)=>{
         console.log(res)
         const {hits} = res;
-        this.fotos = hits
+        this.foto = hits[0]
+        console.log(this.foto)
       })
-      console.log(this.fotos)
     })
   }
 
   GoBack(): void{
-    this.location.back()
+    // this.location.back()
+    this.foto$.subscribe(o => console.log(o[0].category))
+    this.foto$.subscribe(o => console.log(o[0].query))
   }
 }
