@@ -1,5 +1,5 @@
 import { Component, HostListener, Inject } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { Foto } from 'src/app/shared/components/interfaces/fotos.interface';
 import { FotoService } from 'src/app/shared/services/foto.service';
@@ -14,7 +14,8 @@ export class ListaFotosComponent {
   fotos: Foto[] =[];
 
   private pageNum=1;
-  private query!: string;
+  query!: string;
+  category!: string;
   private hideScrollHeight = 200;
   private showScrollHeight = 500;
   showGoUpButton = false;
@@ -23,7 +24,6 @@ export class ListaFotosComponent {
     @Inject(DOCUMENT) private document:Document) {}
 
   ngOnInit(): void{
-    this.getDataFromService();
     this.getFotosByQuery();
   }
 
@@ -40,21 +40,44 @@ export class ListaFotosComponent {
 
   private getFotosByQuery(): void{
     this.route.queryParams.subscribe(params => {
-      console.log(params)
-      this.query = params["q"];
-      this.getDataFromService()
+      if(params["q"]){
+        this.query = params["q"];
+        this.getDataFromService(1)
+      }
+      else if(params["category"]){
+        this.category = params["category"];
+        this.getDataFromService(1)
+      }
+      else{
+        this.getDataFromService(0)
+      }
     })
   }
 
-  private getDataFromService ():void{
-    this.fotoSvc.searchFotos(this.query, this.pageNum)
+  // private getFotosByCategory(): void{
+  //   this.route.queryParams.subscribe(params => {
+  //     this.category = params["category"];
+  //     this.getDataFromService(1)
+  //   })
+  // }
+
+  private getDataFromService (num:number):void{
+    console.log(this.query, this.category)
+    this.fotoSvc.searchFotos(this.query, this.pageNum, this.category)
     .pipe(
       take(1)
     ).subscribe( (res:any) => {
       if(res.hits.length > 0){
-        console.log("Respuesta: ", res)
-        const {hits} = res;
-        this.fotos = [...this.fotos, ...hits]
+        if(num == 1){
+          console.log("Respuesta: ", res)
+          const {hits} = res;
+          this.fotos = [...hits]
+        }
+        else{
+          console.log("Respuesta: ", res)
+          const {hits} = res;
+          this.fotos = [...this.fotos, ...hits]
+        }
       }
       else{
         this.fotos = []
@@ -64,7 +87,7 @@ export class ListaFotosComponent {
 
   onScrollDown():void {
     this.pageNum++;
-    this.getDataFromService()
+    this.getDataFromService(0)
   }
 
   onScrollTop():void {

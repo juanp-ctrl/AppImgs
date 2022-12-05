@@ -15,12 +15,6 @@ import { Foto } from "src/app/shared/components/interfaces/fotos.interface";
         </div>
         </a>
     </div>
-        <div class="card-inner">
-            <div class="header">
-                <h4 class="text-muted">Likes: {{foto.likes}}</h4>
-                <small class="text-muted">Vistas: {{foto.views}}</small>
-            </div>
-        </div>
     </div>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

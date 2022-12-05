@@ -6,14 +6,36 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarCollapse">
+      <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active border-2 border-light border-start ps-4" aria-current="page" routerLink="/">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" id="dropdw" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Categorias
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <li><a class="dropdown-item" href="#" (click)="onSearch($event, 'science')">Science</a></li>
+              <li><a class="dropdown-item" href="#" (click)="onSearch($event, 'education')">Education</a></li>
+              <li><a class="dropdown-item" href="#" (click)="onSearch($event, 'people')">People</a></li>
+              <li><a class="dropdown-item" href="#" (click)="onSearch($event, 'feelings')">Feelings</a></li>
+              <li><a class="dropdown-item" href="#" (click)="onSearch($event, 'computer')">Computer</a></li>
+              <li><a class="dropdown-item" href="#" (click)="onSearch($event, 'buildings')">Buildings</a></li>
+            </ul>
+          </li>
+        </ul>
+        <app-form-search></app-form-search>
+      </div>
+
+      <!-- <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
             <a class="nav-link active border-2 border-light border-start ps-4" aria-current="page" routerLink="/">Home</a>
           </li>
         </ul>
         <app-form-search></app-form-search>
-      </div>
+      </div> -->
       
     </div>
   </nav>
