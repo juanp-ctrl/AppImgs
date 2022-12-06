@@ -12,7 +12,7 @@ import { ActivatedRoute } from "@angular/router";
     <div class="card">
 
     <div class="content">
-        <a (click)="addData()" [routerLink]="['/foto-detalles']" [queryParams]="{id: foto.id}">
+        <a [routerLink]="['/foto-detalles']" [queryParams]="{id: foto.id}">
         <div class="content-overlay"></div>
         <img [src]="foto.webformatURL" [alt]="foto.type" class="content-image">                  <div class="content-details fadeIn-bottom">
             <p class="content-text"># {{foto.tags}}</p>
@@ -25,27 +25,7 @@ import { ActivatedRoute } from "@angular/router";
 
 export class FotoComponent{
     @Input() foto!:Foto;
-    // foto$: Observable<any> = new Observable()
-    // constructor(private store: Store){
-    //     this.foto$ = this.store.select(selectFotos)
-    //     console.log(this.foto$)
-    // }
     query!: string
 
     constructor(private store: Store, private route: ActivatedRoute){}
-
-
-    addData(): void{
-        this.route.queryParams.subscribe(params => {
-            const dataFoto: Foto = {
-                ...this.foto,
-                query: "clavel",
-                category: "ciencia"
-            }
-            // console.log("los parametros",params)
-            this.store.dispatch(addFoto({foto: dataFoto}))
-            // alert("hola")
-        })
-
-    }
 }

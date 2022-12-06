@@ -1,13 +1,11 @@
-import { ChangeDetectionStrategy, Component, HostListener, Inject } from '@angular/core';
+import { Component, HostListener, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { Foto } from 'src/app/shared/components/interfaces/fotos.interface';
 import { FotoService } from 'src/app/shared/services/foto.service';
 import { DOCUMENT } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { addFoto, retrievedFotosList } from 'src/app/state/actions/fotos.actions';
-import { Observable } from 'rxjs';
-import { selectFotos } from 'src/app/state/selectors/fotos.selectors';
+import { addFoto } from 'src/app/state/actions/fotos.actions';
 
 @Component({
   selector: 'app-lista-fotos',
@@ -61,13 +59,6 @@ export class ListaFotosComponent {
       }
     })
   }
-
-  // private getFotosByCategory(): void{
-  //   this.route.queryParams.subscribe(params => {
-  //     this.category = params["category"];
-  //     this.getDataFromService(1)
-  //   })
-  // }
 
   private getDataFromService (num:number):void{
     console.log(this.query, this.category)

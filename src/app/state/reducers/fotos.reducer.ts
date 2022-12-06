@@ -15,10 +15,3 @@ export const fotosReducer = createReducer(
         return [...oldState, ...fotos]
     })
 )
-
-// export const initialState: ReadonlyArray<Book> = [];
-
-// export const booksReducer = createReducer(
-//   initialState,
-//   on(BooksApiActions.retrievedBookList, (_state, { books }) => books)
-// );
