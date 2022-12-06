@@ -1,11 +1,11 @@
-import { Component, HostListener, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { Foto } from 'src/app/shared/components/interfaces/fotos.interface';
 import { FotoService } from 'src/app/shared/services/foto.service';
 import { DOCUMENT } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { retrievedFotosList } from 'src/app/state/actions/fotos.actions';
+import { addFoto, retrievedFotosList } from 'src/app/state/actions/fotos.actions';
 import { Observable } from 'rxjs';
 import { selectFotos } from 'src/app/state/selectors/fotos.selectors';
 
@@ -26,7 +26,7 @@ export class ListaFotosComponent {
   showGoUpButton = false;
 
   constructor(private fotoSvc: FotoService, private route: ActivatedRoute,
-    @Inject(DOCUMENT) private document:Document) 
+    @Inject(DOCUMENT) private document:Document, private store: Store) 
     {
       // this.foto$ = this.store.select(selectFotos)    //Nos comunicamos con el store y hacemos uso del selector
     }
@@ -103,5 +103,15 @@ export class ListaFotosComponent {
   onScrollTop():void {
     this.document.body.scrollTop = 0;   //Safari
     this.document.documentElement.scrollTop = 0;    //Otros navegadores
+  }
+
+  addData(foto:Foto):void {
+    const dataFoto: Foto = {
+      ...foto,
+      query: this.query,
+      category: this.category
+  }
+  console.log("ESTA ES LA DATA",dataFoto,this.query,this.category)
+    this.store.dispatch(addFoto({foto: dataFoto}))
   }
 }

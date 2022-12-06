@@ -2,7 +2,18 @@
     <!-- {{foto$ | async | json}} -->
     <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let foto of fotos">
         <!-- Todas las fotos -->
-        <app-foto [foto]="foto"></app-foto>
+        <!-- <app-foto [foto]="foto" (click)="(parametros())" ></app-foto> -->
+        <div class="card">
+
+            <div class="content">
+                <a (click)="addData(foto)" [routerLink]="['/foto-detalles']" [queryParams]="{id: foto.id}">
+                <div class="content-overlay"></div>
+                <img [src]="foto.webformatURL" [alt]="foto.type" class="content-image">                  <div class="content-details fadeIn-bottom">
+                    <p class="content-text"># {{foto.tags}}</p>
+                </div>
+                </a>
+            </div>
+            </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 mt-5 container-notFound"
     *ngIf="fotos.length <= 0">

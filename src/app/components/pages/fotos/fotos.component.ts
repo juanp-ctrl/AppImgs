@@ -4,6 +4,7 @@ import { Foto } from "src/app/shared/components/interfaces/fotos.interface";
 import { Store } from "@ngrx/store";
 import { selectFotos } from "src/app/state/selectors/fotos.selectors";
 import { addFoto } from "src/app/state/actions/fotos.actions";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: "app-foto",
@@ -29,17 +30,22 @@ export class FotoComponent{
     //     this.foto$ = this.store.select(selectFotos)
     //     console.log(this.foto$)
     // }
+    query!: string
 
-    constructor(private store: Store){}
+    constructor(private store: Store, private route: ActivatedRoute){}
 
 
     addData(): void{
-        const dataFoto: Foto = {
-            ...this.foto,
-            query: "clavel",
-            category: "ciencia"
-        }
-        this.store.dispatch(addFoto({foto: dataFoto}))
+        this.route.queryParams.subscribe(params => {
+            const dataFoto: Foto = {
+                ...this.foto,
+                query: "clavel",
+                category: "ciencia"
+            }
+            // console.log("los parametros",params)
+            this.store.dispatch(addFoto({foto: dataFoto}))
+            // alert("hola")
+        })
 
     }
 }

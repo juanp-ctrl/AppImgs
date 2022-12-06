@@ -3,7 +3,7 @@ import { Foto } from 'src/app/shared/components/interfaces/fotos.interface';
  
 export const selectFotos = createFeatureSelector<ReadonlyArray<Foto>>('fotos');     //Lo definido en el app module
 
-export const selecUnaFoto = createFeatureSelector<Foto>('fotos')
+export const selectUnaFoto = createFeatureSelector<Foto>('fotos')
 
 // export const selectBooks = createFeatureSelector<ReadonlyArray<Book>>('books');
  
